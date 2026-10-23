@@ -1,0 +1,563 @@
+/* ==========================================
+   1. BASE SETUP & FONTS
+   ================================          */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Load your real handwritten font */
+@font-face {
+    font-family: 'MyHandwriting';
+    src: url('assets/Myfont-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Apply it across your entire website */
+body {
+    background-color: #1F1F1F;
+    color: #FFFFFF;
+    font-family: 'MyHandwriting', cursive, sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+
+/* ==========================================
+   2. SECTION LAYOUTS
+   ================================          */
+section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.story-section {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+}
+
+.text-container {
+    max-width: 650px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+/* ==========================================
+   3. TYPOGRAPHY & HANDWRITTEN STYLING
+   ================================          */
+.story-text {
+    font-size: 3rem; 
+    line-height: 1.8;
+    color: #E0E0E0;
+    letter-spacing: 1px; 
+    word-spacing: 3px;   
+}
+
+/* Card / Note Box Styling (Section 2) */
+.scroll-note {
+    max-width: 600px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    padding: 2.5rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.scroll-heading {
+    color: #FFAA33;
+    font-size: 3rem;
+    letter-spacing: 1px;
+}
+
+.scroll-body {
+    font-size: 2.6rem;
+    line-height: 1.6;
+    color: #CCCCCC;
+}
+
+.scroll-prompt {
+    color: #FFAA33;
+    font-size: 2.4rem;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+
+/* ==========================================
+   4. UI ELEMENTS & ANIMATIONS
+   ================================          */
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: #888888;
+    font-size: 1.5rem; /* Scaled up to match handwriting font */
+    letter-spacing: 1px;
+    text-transform: lowercase;
+}
+
+.scroll-indicator .arrow {
+    font-size: 1.8rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(8px); }
+    60% { transform: translateY(4px); }
+}
+
+/* Mineral Layer Display */
+.mineral-container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.mineral-drawing {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+}
+
+/* Transition Section Styling */
+.transition-section {
+    min-height: 85vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* SVG Winding Line */
+.winding-line-svg {
+    position: absolute;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Transition Text Floating Notes */
+.transition-text-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 100%;
+    min-height: 550px;
+    z-index: 2;
+}
+
+.hand-note {
+    position: absolute;
+    font-family: 'MyHandwriting', cursive;
+    color: #FFAA33;
+    font-size: 2.5rem;
+    line-height: 1.4;
+}
+
+/* Precise Placement matching your new sketch */
+.note-cut {
+    top: 25%;
+    right: 15%;
+    text-align: left;
+}
+
+.note-more {
+    top: 55%;
+    left: 10%;
+    text-align: left;
+    max-width: 280px;
+}
+
+@media (max-width: 768px) {
+    .hand-note {
+        font-size: 2rem;
+    }
+    .note-cut { right: 8%; top: 22%; }
+    .note-more { left: 8%; top: 52%; max-width: 200px; }
+}
+
+/* Transition Section Extension for Layers */
+#transition-layers {
+    min-height: 140vh; /* Extra height to let the user scroll through the full dialogue */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: relative;
+    overflow: hidden;
+}
+
+.layer-realization {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    z-index: 2;
+    padding: 3rem 0;
+}
+
+.note-layered {
+    font-size: 2.8rem;
+    color: #FFAA33;
+    line-height: 1.5;
+}
+
+.indented-layered {
+    display: inline-block;
+    margin-left: 4rem;
+}
+
+/* Precise Placement for the second sketch block */
+.transition-text-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 600px;
+    z-index: 2;
+}
+
+.note-why {
+    top: 5%;
+    right: 10%;
+    text-align: right;
+    max-width: 320px;
+}
+
+.note-what {
+    top: 50%;
+    left: 8%;
+    text-align: left;
+    max-width: 280px;
+}
+
+.note-scroll {
+    bottom: 5%;
+    right: 20%;
+    font-style: italic;
+    color: #E0E0E0;
+}
+
+@media (max-width: 768px) {
+    .note-layered { font-size: 2.2rem; }
+    .indented-layered { margin-left: 2rem; }
+    .note-why { right: 5%; top: 2%; max-width: 220px; }
+    .note-what { left: 5%; top: 48%; max-width: 200px; }
+    .note-scroll { right: 10%; bottom: 2%; }
+}
+
+/* Short Transition Styling */
+.transition-section-short {
+    min-height: 60vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.short-container {
+    height: 400px;
+    min-height: 400px;
+}
+
+/* Position "It continues.." right in the middle-right curve of the orange line */
+.note-continues {
+    top: 45%;
+    left: 55%;
+    text-align: left;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .note-continues {
+        font-size: 2rem;
+        left: 52%;
+    }
+}
+
+/* Transition Note: Ruby to Tiger's Eye */
+.note-why-like-this {
+    top: 30%;
+    left: 12%;
+    text-align: left;
+    max-width: 250px;
+}
+
+/* Transition Note: Tiger's Eye to Emerald */
+.note-meaning {
+    top: 25%;
+    left: 10%;
+    text-align: left;
+    max-width: 300px;
+}
+
+@media (max-width: 768px) {
+    .note-why-like-this {
+        left: 5%;
+        top: 25%;
+        font-size: 2rem;
+    }
+    .note-meaning {
+        left: 5%;
+        top: 20%;
+        font-size: 2rem;
+    }
+}
+
+/* Tall Transition Styling for the 3-part sequence */
+.transition-section-tall {
+    min-height: 120vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tall-container {
+    height: 700px;
+    min-height: 700px;
+}
+
+/* Precise placement matching your final sketch */
+.note-almost {
+    top: 5%;
+    right: 15%;
+    text-align: left;
+    max-width: 320px;
+}
+
+.note-stopped {
+    top: 38%;
+    left: 8%;
+    text-align: left;
+    max-width: 340px;
+}
+
+.note-writes {
+    bottom: 6%;
+    right: 8%; /* Shifted slightly right to give breathing room */
+    text-align: left;
+    max-width: 300px;
+}
+
+.it-writes {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-style: italic;
+    padding-left: 1rem; /* Nudges "It writes -" right so the arrow never touches it */
+}
+
+@media (max-width: 768px) {
+    .note-almost { right: 8%; top: 4%; font-size: 1.9rem; }
+    .note-stopped { left: 5%; top: 35%; font-size: 1.9rem; max-width: 240px; }
+    .note-writes { right: 5%; bottom: 5%; font-size: 1.9rem; }
+}
+
+/* Climax Narrative Styling */
+.climax-section {
+    min-height: 220vh; /* Generous vertical scroll room for deliberate pacing */
+    padding: 10vh 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.climax-container {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4.5rem; /* Space out each stanza cleanly */
+}
+
+.climax-line {
+    font-family: 'MyHandwriting', cursive;
+    font-size: 2.4rem;
+    color: #E0E0E0;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+}
+
+/* Stanza specific highlights */
+.line-1 {
+    font-size: 2.6rem;
+    color: #FFAA33;
+}
+
+.line-2 {
+    color: #A0A0A0;
+    font-style: italic;
+}
+
+.emphasis-pivot {
+    font-size: 2.8rem;
+    color: #FFFFFF;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Grand Final Reveal */
+.climax-reveal-block {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.grand-reveal {
+    font-size: 3rem;
+    color: #FFAA33;
+    text-shadow: 0 0 20px rgba(255, 170, 51, 0.25);
+}
+
+.grand-reveal-heart {
+    font-size: 3.4rem;
+    color: #FFB74D;
+    line-height: 1.5;
+    text-shadow: 0 0 25px rgba(255, 170, 51, 0.4);
+}
+
+@media (max-width: 768px) {
+    .climax-container {
+        gap: 3.5rem;
+    }
+    .climax-line {
+        font-size: 1.8rem;
+    }
+    .line-1 { font-size: 2rem; }
+    .emphasis-pivot { font-size: 2.1rem; }
+    .grand-reveal { font-size: 2.2rem; }
+    .grand-reveal-heart { font-size: 2.5rem; }
+}
+
+/* Extra-Tall Transition Styling for Realization Path */
+.transition-section-xl {
+    min-height: 150vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.xl-container {
+    height: 900px;
+    min-height: 900px;
+}
+
+/* Precise placement matching your sketch */
+.note-what-realization {
+    top: 3%;
+    right: 22%;
+    font-size: 2.8rem;
+}
+
+.note-quartz-weight {
+    top: 15%;
+    left: 8%;
+    text-align: left;
+    max-width: 320px;
+}
+
+.note-tiger-shield {
+    top: 38%;
+    right: 10%;
+    text-align: left;
+    max-width: 300px;
+}
+
+.note-ruby-fire {
+    top: 60%;
+    left: 10%;
+    text-align: left;
+    max-width: 280px;
+}
+
+.note-emerald-heart {
+    bottom: 5%;
+    right: 8%;
+    text-align: left;
+    max-width: 340px;
+}
+
+.heart-q {
+    font-size: 3rem;
+    color: #FFAA33;
+}
+
+@media (max-width: 768px) {
+    .note-what-realization { right: 12%; top: 2%; font-size: 2.2rem; }
+    .note-quartz-weight { left: 4%; top: 12%; font-size: 1.8rem; max-width: 220px; }
+    .note-tiger-shield { right: 4%; top: 35%; font-size: 1.8rem; max-width: 200px; }
+    .note-ruby-fire { left: 4%; top: 58%; font-size: 1.8rem; max-width: 180px; }
+    .note-emerald-heart { right: 4%; bottom: 3%; font-size: 1.8rem; max-width: 240px; }
+}
+
+/* Outro Section Styling */
+.outro-section {
+    min-height: 60vh;
+    padding: 8vh 2rem 12vh 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outro-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.outro-line {
+    font-family: 'MyHandwriting', cursive;
+    font-size: 2.5rem;
+    color: #A0A0A0;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+
+.outro-line.line-2 {
+    color: #FFAA33; /* Gentle orange accent on the final line */
+    font-size: 2.7rem;
+}
+
+@media (max-width: 768px) {
+    .outro-line {
+        font-size: 1.9rem;
+    }
+    .outro-line.line-2 {
+        font-size: 2.1rem;
+    }
+}
